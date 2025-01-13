@@ -7,7 +7,9 @@ interface Iprops {
     title?: string,
     typeInput?: KeyboardTypeOptions | undefined;
     icons?: ReactNode,
-    typePassword?: boolean
+    typePassword?: boolean,
+    value: string,
+    setValue: (v: string) => void
 }
 
 const styles = StyleSheet.create({
@@ -31,12 +33,14 @@ const styles = StyleSheet.create({
     }
 })
 const ShareInput = (props: Iprops) => {
-    const { title, typeInput, icons, typePassword } = props;
+    const { title, typeInput, icons, typePassword, value, setValue } = props;
     const [focus, setFocus] = useState<boolean>(false)
     return (
         <View style={styles.inputGroup}>
             {title && <Text style={styles.textInput}>{title}</Text>}
             <TextInput
+                value={value}
+                onChangeText={(v) => setValue(v)}
                 onFocus={() => setFocus(true)}
                 onBlur={() => setFocus(false)}
                 keyboardType={typeInput}
