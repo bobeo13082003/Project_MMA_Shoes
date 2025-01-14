@@ -42,7 +42,10 @@ const Signup = () => {
                 setUserName("")
                 setEmail("")
                 setPassword("")
-                router.navigate("/(auth)/vertify")
+                router.replace({
+                    pathname: "/(auth)/vertify",
+                    params: { email }
+                })
             } else {
                 toast('error', 'Error', res.message)
             }

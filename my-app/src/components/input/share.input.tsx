@@ -8,7 +8,7 @@ interface Iprops {
     typeInput?: KeyboardTypeOptions | undefined;
     icons?: ReactNode,
     typePassword?: boolean,
-    value: string,
+    value?: string,
     setValue: (v: string) => void
 }
 

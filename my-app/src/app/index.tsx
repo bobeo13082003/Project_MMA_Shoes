@@ -2,10 +2,7 @@ import { Image, ImageBackground, StyleSheet, Text, View } from "react-native"
 import ShareButton from "components/button/share.button";
 import { APP_COLOR } from "@/utils/constant";
 import bgWelcome from "@/assets/images/Welcome.png"
-import fbLogo from "@/assets/images/fbLogo.png"
-import ggLogo from "@/assets/images/ggLogo.png"
 import { LinearGradient } from 'expo-linear-gradient';
-import TextBetweenLine from "@/components/button/text.between.line";
 import { Link, Redirect } from "expo-router";
 import SocialButton from "@/components/button/social.button";
 const styles = StyleSheet.create({
@@ -54,11 +51,11 @@ const styles = StyleSheet.create({
 
 const WelcomePage = () => {
 
-    if (true) {
-        return (
-            <Redirect href={"/(auth)/signup"} />
-        )
-    }
+    // if (true) {
+    //     return (
+    //         <Redirect href={"/(auth)/vertify"} />
+    //     )
+    // }
 
     return (
         <ImageBackground style={{ flex: 1 }} source={bgWelcome}>
