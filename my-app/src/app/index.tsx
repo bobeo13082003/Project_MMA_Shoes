@@ -3,7 +3,7 @@ import ShareButton from "components/button/share.button";
 import { APP_COLOR } from "@/utils/constant";
 import bgWelcome from "@/assets/images/Welcome.png"
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link, Redirect } from "expo-router";
+import { Link, Redirect, router } from "expo-router";
 import SocialButton from "@/components/button/social.button";
 const styles = StyleSheet.create({
     container: {
@@ -51,11 +51,11 @@ const styles = StyleSheet.create({
 
 const WelcomePage = () => {
 
-    // if (true) {
-    //     return (
-    //         <Redirect href={"/(auth)/vertify"} />
-    //     )
-    // }
+    if (true) {
+        return (
+            <Redirect href={"/(tabs)"} />
+        )
+    }
 
     return (
         <ImageBackground style={{ flex: 1 }} source={bgWelcome}>
@@ -74,7 +74,7 @@ const WelcomePage = () => {
                                 btnStyle={{ borderColor: "#ccc", borderWidth: 1, justifyContent: "center", borderRadius: 30, paddingVertical: 10, paddingHorizontal: 60, marginHorizontal: 30, backgroundColor: "black", opacity: 0.9 }}
                                 textStyle={{ color: "white" }}
                                 presStyle={{ alignSelf: "stretch" }}
-                                onPress={() => alert("facebook")}
+                                onPress={() => router.navigate("/(auth)/login")}
                                 title="Start with your mail" />
                         </View>
                         <View style={{ flexDirection: "row", gap: 5, justifyContent: "center" }}>

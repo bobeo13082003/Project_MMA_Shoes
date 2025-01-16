@@ -3,6 +3,7 @@ import Toast, { BaseToast, ErrorToast, ToastConfigParams } from 'react-native-to
 import React from "react";
 import { Text, View } from "react-native";
 import { APP_COLOR } from "@/utils/constant";
+import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 
 /*
   1. Create the config
@@ -61,20 +62,30 @@ const toastConfig = {
         )
     }
 };
+const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        background: 'transparent'
+    },
+};
 
 const RootLayout = () => {
     return (
         <>
+            {/* <ThemeProvider value={MyTheme}> */}
             <Stack>
                 <Stack.Screen name="index" options={{ headerShown: false }} />
                 <Stack.Screen name="(auth)/signup" options={{ headerShown: false }} />
                 <Stack.Screen name="(auth)/login" options={{ headerShown: false }} />
                 <Stack.Screen name="(auth)/vertify" options={{ headerShown: false }} />
-                <Stack.Screen name="(tabs)" options={{ headerTitle: "My Home" }} />
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen name="product/index" options={{ headerTitle: "My Product" }} />
             </Stack>
             <Toast config={toastConfig} />
+            {/* </ThemeProvider> */}
         </>
+
     )
 }
 
