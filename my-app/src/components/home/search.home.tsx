@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         padding: 7,
         marginHorizontal: 3,
         borderRadius: 5,
-        gap: 10
+        gap: 10,
     }
 })
 

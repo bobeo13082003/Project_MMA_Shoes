@@ -9,23 +9,23 @@ const TabLayout = () => {
     const getIcons = (routeName: string, focused: boolean, size: number) => {
         if (routeName === "index") {
             return (
-                <MaterialCommunityIcons name="silverware-fork-knife" size={size} color={focused ? APP_COLOR.ORANGE : "##C6C6C6"} />
+                <MaterialCommunityIcons name="silverware-fork-knife" size={size} color={focused ? APP_COLOR.ORANGE : "#C6C6C6"} />
             )
         } else if (routeName === "order") {
             return (
-                <FontAwesome5 name="list-alt" size={size} color={focused ? APP_COLOR.ORANGE : "##C6C6C6"} />
+                <FontAwesome5 name="list-alt" size={size} color={focused ? APP_COLOR.ORANGE : "#C6C6C6"} />
             )
         } else if (routeName === "favorite") {
             return (
-                <AntDesign name="hearto" size={size} color={focused ? APP_COLOR.ORANGE : "##C6C6C6"} />
+                <AntDesign name="hearto" size={size} color={focused ? APP_COLOR.ORANGE : "#C6C6C6"} />
             )
         } else if (routeName === "notification") {
             return (
-                <Ionicons name="notifications-outline" size={size} color={focused ? APP_COLOR.ORANGE : "##C6C6C6"} />
+                <Ionicons name="notifications-outline" size={size} color={focused ? APP_COLOR.ORANGE : "#C6C6C6"} />
             )
         } else if (routeName === "account") {
             return (
-                <Octicons name="people" size={size} color={focused ? APP_COLOR.ORANGE : "##C6C6C6"} />
+                <Octicons name="people" size={size} color={focused ? APP_COLOR.ORANGE : "#C6C6C6"} />
             )
         }
     }

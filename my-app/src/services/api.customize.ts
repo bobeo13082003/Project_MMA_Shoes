@@ -1,5 +1,8 @@
+import { RootState, store } from '@/redux/store';
 import axios from 'axios'
 import { Platform } from 'react-native';
+import { useSelector } from 'react-redux';
+import React from 'react';
 
 const apiBackend = Platform.OS === "android"
   ? process.env.EXPO_PUBLIC_ANDROID_API_URL
@@ -8,9 +11,13 @@ const apiBackend = Platform.OS === "android"
 const instance = axios.create({
   baseURL: apiBackend,
 });
+
+
 // Add a request interceptor
 instance.interceptors.request.use(function (config) {
   // Do something before request is sent
+  const token = store.getState().user.token;
+  config.headers["Authorization"] = `Bearer ${token}`
   return config;
 }, function (error) {
   // Do something with request error

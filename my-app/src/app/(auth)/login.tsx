@@ -10,6 +10,9 @@ import { login } from "@/services/api/api";
 import { toast } from "@/utils/toast";
 import { Formik } from 'formik';
 import { SigninSchema } from "@/utils/validate.schema";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { userLogin } from "@/redux/slices/userSlice";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -21,7 +24,7 @@ const styles = StyleSheet.create({
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState<boolean>(true)
-
+    const dispatch = useDispatch<AppDispatch>();
     const handleLogin = async (email: string, password: string) => {
         try {
             const res = await login(email, password);
@@ -31,8 +34,10 @@ const Login = () => {
             })
             if (res.data && res.data.code === 200) {
                 toast('success', res.data.message)
+                router.replace("/(tabs)")
+                dispatch(userLogin(res.data.token))
             } else {
-                toast('error', 'Error', res.data?.message)
+                toast('error', 'Error', res.message)
             }
         } catch (error) {
             console.log(error);

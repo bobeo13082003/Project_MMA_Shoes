@@ -3,8 +3,10 @@ import Toast, { BaseToast, ErrorToast, ToastConfigParams } from 'react-native-to
 import React from "react";
 import { Text, View } from "react-native";
 import { APP_COLOR } from "@/utils/constant";
-import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
-
+import { DefaultTheme } from "@react-navigation/native";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store } from "@/redux/store";
 /*
   1. Create the config
 */
@@ -45,13 +47,6 @@ const toastConfig = {
             }}
         />
     ),
-    /*
-      Or create a completely new type - `tomatoToast`,
-      building the layout from scratch.
-  
-      I can consume any custom `props` I want.
-      They will be passed when calling the `show` method (see below)
-    */
     tomatoToast: (props: ToastConfigParams<any>) => {
         const { text, uuid } = props as any;
         return (
@@ -74,15 +69,20 @@ const RootLayout = () => {
     return (
         <>
             {/* <ThemeProvider value={MyTheme}> */}
-            <Stack>
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-                <Stack.Screen name="(auth)/signup" options={{ headerShown: false }} />
-                <Stack.Screen name="(auth)/login" options={{ headerShown: false }} />
-                <Stack.Screen name="(auth)/vertify" options={{ headerShown: false }} />
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="product/index" options={{ headerTitle: "My Product" }} />
-            </Stack>
-            <Toast config={toastConfig} />
+            <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
+                    <Stack>
+                        <Stack.Screen name="index" options={{ headerShown: false }} />
+                        <Stack.Screen name="(auth)/login" options={{ headerShown: false }} />
+                        <Stack.Screen name="(auth)/signup" options={{ headerShown: false }} />
+                        <Stack.Screen name="(auth)/wellcome" options={{ headerShown: false }} />
+                        <Stack.Screen name="(auth)/vertify" options={{ headerShown: false }} />
+                        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                        <Stack.Screen name="product/index" options={{ headerTitle: "My Product" }} />
+                    </Stack>
+                    <Toast config={toastConfig} />
+                </PersistGate>
+            </Provider >
             {/* </ThemeProvider> */}
         </>
 

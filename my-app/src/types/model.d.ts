@@ -13,4 +13,16 @@ declare global {
         code?: number
 
     }
+
+    interface ILogin {
+        token: string,
+        message: string,
+        code?: number
+    }
+
+    interface IAccount {
+        code: number
+        email: string,
+        userName: string
+    }
 }

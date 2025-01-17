@@ -1,10 +1,13 @@
-import { Image, ImageBackground, StyleSheet, Text, View } from "react-native"
-import ShareButton from "components/button/share.button";
+import { StyleSheet, Text, View } from "react-native"
 import { APP_COLOR } from "@/utils/constant";
-import bgWelcome from "@/assets/images/Welcome.png"
-import { LinearGradient } from 'expo-linear-gradient';
-import { Link, Redirect, router } from "expo-router";
-import SocialButton from "@/components/button/social.button";
+import { router } from "expo-router";
+import { useEffect } from "react";
+import { account } from "@/services/api/api";
+
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -49,45 +52,44 @@ const styles = StyleSheet.create({
     }
 })
 
-const WelcomePage = () => {
+const RootPage = () => {
+    const getAccount = async () => {
+        try {
+            const res = await account();
+            if (res.data && res.data.code === 200) {
+                router.replace("/(tabs)")
+            } else {
+                router.replace("/(auth)/wellcome")
+            }
+        } catch (error) {
+            console.log(error);
 
-    if (true) {
-        return (
-            <Redirect href={"/(tabs)"} />
-        )
+        }
     }
 
-    return (
-        <ImageBackground style={{ flex: 1 }} source={bgWelcome}>
-            <LinearGradient locations={[0.1, 0.8]} style={{ flex: 1 }} colors={['transparent', 'rgba(0,0,0,0.8)']}>
+    useEffect(() => {
 
-                <View style={styles.container}>
-                    <View style={styles.welcomeText}>
-                        <Text style={styles.heading}>Welcome to</Text>
-                        <Text style={styles.body}>@Bobeo - Food</Text>
-                        <Text style={styles.footer}>Your go-to app for delicious meals!</Text>
-                    </View>
-                    <View style={styles.welcomeButton}>
-                        <SocialButton />
-                        <View>
-                            <ShareButton
-                                btnStyle={{ borderColor: "#ccc", borderWidth: 1, justifyContent: "center", borderRadius: 30, paddingVertical: 10, paddingHorizontal: 60, marginHorizontal: 30, backgroundColor: "black", opacity: 0.9 }}
-                                textStyle={{ color: "white" }}
-                                presStyle={{ alignSelf: "stretch" }}
-                                onPress={() => router.navigate("/(auth)/login")}
-                                title="Start with your mail" />
-                        </View>
-                        <View style={{ flexDirection: "row", gap: 5, justifyContent: "center" }}>
-                            <Text style={{ color: "white" }}>Already have an account?</Text>
-                            <Link href={"/(auth)/signup"}>
-                                <Text style={{ color: "white", textDecorationLine: "underline" }}> Sign in</Text>
-                            </Link>
-                        </View>
-                    </View>
-                </View>
-            </LinearGradient>
-        </ImageBackground>
+    }, [])
+
+    useEffect(() => {
+        async function prepare() {
+            try {
+                getAccount()
+            } catch (e) {
+                console.warn(e);
+            } finally {
+                // Tell the application to render
+                SplashScreen.hide()
+            }
+        }
+
+        prepare();
+    }, []);
+
+    return (
+        <View>
+        </View>
     )
 }
 
-export default WelcomePage;
+export default RootPage;

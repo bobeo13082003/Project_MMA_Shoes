@@ -8,7 +8,7 @@ export const register = (userName: string, email: string, password: string) => {
 export const login = (email: string, password: string) => {
     const url = '/api/v1/auth/login';
 
-    return axios.post<IBackendRes<IRegister>>(url, { email, password })
+    return axios.post<IBackendRes<ILogin>>(url, { email, password })
 }
 
 export const vertify = (otp: string, email: string) => {
@@ -21,4 +21,10 @@ export const resendOtp = (email: string) => {
     const url = '/api/v1/auth/resend-otp';
 
     return axios.post<IBackendRes<IRegister>>(url, { email })
+}
+
+export const account = () => {
+    const url = '/api/v1/auth/profile';
+
+    return axios.get<IBackendRes<IAccount>>(url)
 }

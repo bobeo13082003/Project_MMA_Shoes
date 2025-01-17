@@ -416,4 +416,29 @@ module.exports.reset = async (req, res) => {
     })
 }
 
+//[GET] api/v1/auth/profile
+module.exports.profile = async (req, res) => {
+    try {
+        const authHeader = req.header("Authorization");
+        const token = authHeader && authHeader.split(" ")[1];
+        if (!authHeader) {
+            return res.status(401).json({ message: 'Authorization header is missing' });
+        }
+        if (!token) {
+            return res.status(401).json({ message: 'Token is missing' });
+        }
+
+        const user = await Users.findOne({
+            token: token
+        }).select("email userName")
+        res.status(200).json({
+            code: 200,
+            user,
+            message: "Get Profile Successfully"
+        })
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
 

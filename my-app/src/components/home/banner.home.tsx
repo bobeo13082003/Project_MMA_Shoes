@@ -37,7 +37,7 @@ function BannerHome() {
 
     return (
         <GestureHandlerRootView>
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, marginTop: 30 }}>
                 <Carousel
                     ref={ref}
                     width={width}
