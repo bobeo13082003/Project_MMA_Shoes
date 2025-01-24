@@ -2,12 +2,15 @@ const { default: mongoose } = require("mongoose");
 const slug = require('mongoose-slug-updater')
 mongoose.plugin(slug)
 
-const categoriesSchema = new mongoose.Schema({
+const restaurantsSchema = new mongoose.Schema({
     title: String,
-    thumbnail: String,
-    category_id: {
-        default: "",
-        type: String
+    image: String,
+    phone: String,
+    address: String,
+    email: String,
+    rating: {
+        type: Number,
+        default: 0
     },
     status: {
         type: String,
@@ -22,8 +25,10 @@ const categoriesSchema = new mongoose.Schema({
         default: false
     },
     deleteAt: Date
+}, {
+    timestamps: true
 })
 
-const Categories = mongoose.model('Categories', categoriesSchema, "categories")
+const Restaurants = mongoose.model('Restaurants', restaurantsSchema, "restaurants")
 
-module.exports = Categories;
+module.exports = Restaurants;

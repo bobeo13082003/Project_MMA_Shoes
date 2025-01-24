@@ -1,9 +1,9 @@
-const Categories = require("../../model/categories");
+const Restaurants = require("../../model/restaurant");
 
-module.exports.createCategory = async (req, res) => {
+module.exports.createRestaurant = async (req, res) => {
     try {
         const title = req.body.title;
-        const titleExits = await Categories.findOne({
+        const titleExits = await Restaurants.findOne({
             title: title,
             status: "active",
             deleted: false
@@ -15,11 +15,11 @@ module.exports.createCategory = async (req, res) => {
                 subtitle: titleExits._id
             }
         }
-        const category = new Categories({ ...req.body, slug: slug })
+        const category = new Restaurants({ ...req.body, slug: slug })
         await category.save();
         res.status(201).json({
             code: 201,
-            message: "Create Category Successfully"
+            message: "Create Restaurants Successfully"
         })
     } catch (error) {
         res.status(500).json(error)
