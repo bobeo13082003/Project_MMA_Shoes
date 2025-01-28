@@ -5,15 +5,28 @@ import InputForm from '../../components/input/InputForm';
 import InputUploadImage from '../../components/input/InputUploadImage';
 import ButtonForm from '../button/ButtonFrom';
 import { createRestaurantSchema } from '../../utils/validate/Validate';
+import { addNewRestaurant } from '../../utils/api/ApiRestaurant';
+import { toast } from 'react-toastify'
 const { Panel } = Collapse;
 const FormAddRestaurant = () => {
     const [image, setImage] = useState<File>();
     const [previewImage, setPreviewImage] = useState<string>("")
 
+    const handleSubmit = async (values, { resetForm }) => {
+        const { title, phone, address, email } = values;
+        try {
+            const res = await addNewRestaurant(title, image, phone, address, email)
+            if (res && res.data.code === 201) {
+                toast.success(res.data.message);
+                resetForm()
+            } else {
+                toast.error("Failed to create new restaurant");
+            }
 
-    const handleSubmit = (values) => {
-        console.log('Form values:', values);
-        console.log('Image:', image);
+        } catch (error) {
+            console.log(error);
+
+        }
     };
     return (
         <Collapse
@@ -29,9 +42,10 @@ const FormAddRestaurant = () => {
                         phone: '',
                         address: '',
                         email: '',
-                    }}
+                    }
+                    }
                     validationSchema={createRestaurantSchema}
-                    onSubmit={handleSubmit}
+                    onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
                 >
                     {({ setFieldValue }) => (
                         <Form>
