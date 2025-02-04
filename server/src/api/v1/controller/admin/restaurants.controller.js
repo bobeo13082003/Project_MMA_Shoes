@@ -3,21 +3,8 @@ const Restaurants = require("../../model/restaurant");
 // [POST] api/v1/restaurant/new-restaurant
 module.exports.createRestaurant = async (req, res) => {
     try {
-        const title = req.body.title;
-        const titleExits = await Restaurants.findOne({
-            title: title,
-            status: "active",
-            deleted: false
-        })
-        let slug;
-        if (titleExits) {
-            slug = JSON.stringify({
-                title: title,
-                subtitle: titleExits._id
-            });
-        }
-        const category = new Restaurants({ ...req.body, slug: slug })
-        await category.save();
+        const restaurant = new Restaurants(req.body)
+        await restaurant.save();
         res.status(201).json({
             code: 201,
             message: "Create Restaurants Successfully"
@@ -42,3 +29,4 @@ module.exports.getAllRestaurant = async (req, res) => {
         res.status(500).json(error)
     }
 }
+

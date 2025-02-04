@@ -3,8 +3,8 @@ const slug = require('mongoose-slug-updater')
 mongoose.plugin(slug)
 
 const menueschema = new mongoose.Schema({
-    restaurant: String,
-    name: String,
+    restaurant: { type: mongoose.Schema.Types.ObjectId, ref: "Restaurants" },
+    title: String,
     description: String,
     price: String,
     image: String,
@@ -24,5 +24,4 @@ const menueschema = new mongoose.Schema({
 )
 
 const Menues = mongoose.model('Menues', menueschema, 'menues');
-
-export default Menues;
+module.exports = Menues;
