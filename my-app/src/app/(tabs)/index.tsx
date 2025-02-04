@@ -9,9 +9,9 @@ import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const data = [
-    { key: 1, name: "Top 5 *", description: "58 nguyen khanh toan", ref: "" },
-    { key: 2, name: "Top Vip *", description: "124 nguyen xien", ref: "" },
-    { key: 3, name: "Top Top *", description: "58 nguyen tri cong", ref: "" },
+    { key: 1, name: "Top 5 *", description: "", ref: "top-5" },
+    { key: 2, name: "New *", description: "", ref: "new" },
+    { key: 3, name: "Free Ship *", description: "", ref: "free-ship" },
 ];
 
 function HomeTab() {
@@ -21,7 +21,7 @@ function HomeTab() {
         <CustomFlatList
             data={data}
             style={styles.list}
-            renderItem={(item) => <CollectionHome description={item.item.description} name={item.item.name} />}
+            renderItem={(item) => <CollectionHome description={item.item.description} name={item.item.name} refId={item.item.ref} />}
             HeaderComponent={<Header />}
             StickyElementComponent={<Search />}
             TopListElementComponent={<Mycomponent />}

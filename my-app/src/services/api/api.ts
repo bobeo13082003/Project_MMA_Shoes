@@ -28,3 +28,19 @@ export const account = () => {
 
     return axios.get<IBackendRes<IAccount>>(url)
 }
+
+export const getRestaurantHome = (refId: string) => {
+    const url = `/api/v1/restaurant/${refId}`;
+
+    return axios.get<IBackendRes<IRestaurant>>(url)
+}
+export const getRestaurant = (id: string) => {
+    const url = `/api/v1/restaurant/detail-restaurant`;
+
+    return axios.get<IBackendRes<IRestaurantDetail>>(url, { params: { id } })
+}
+export const getMenues = (idRestaurant: string) => {
+    const url = `/api/v1/menues/menues-restaurant`;
+
+    return axios.get<IBackendRes<IMenues>>(url, { params: { idRestaurant } })
+}

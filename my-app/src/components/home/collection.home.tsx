@@ -1,10 +1,12 @@
-import { View, Text, StyleSheet, Image, FlatList } from "react-native";
-import demo from "@/assets/images/trasua.jpg"
+import { View, Text, StyleSheet, Image, FlatList, Pressable } from "react-native";
 import { APP_COLOR } from "@/utils/constant";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { router } from "expo-router";
+import { getRestaurantHome } from "@/services/api/api";
 interface IProps {
     name: string,
-    description: string
+    description: string,
+    refId: string
 }
 
 const styles = StyleSheet.create({
@@ -17,14 +19,23 @@ const styles = StyleSheet.create({
 })
 
 const CollectionHome = (props: IProps) => {
-    const { name, description } = props;
-    const data = [
-        { key: 1, demo, name: "Quan Anh Beo" },
-        { key: 2, demo, name: "Quan Anh Beo" },
-        { key: 3, demo, name: "Quan Anh Beobhjbhjbb jk" },
-        { key: 4, demo, name: "Quan Anh Beo" },
-        { key: 5, demo, name: "Quan Anh Beo" },
-    ]
+    const { name, description, refId } = props;
+    const [restaurants, setRestaurants] = useState<IRestaurantData[]>([])
+    const getRestaurants = async () => {
+        try {
+            const res = await getRestaurantHome(refId);
+
+            if (res && res.data?.code === 200) {
+                setRestaurants(res.data.data)
+            }
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+    useEffect(() => {
+        getRestaurants()
+    }, [refId])
     return (
         <>
             <View style={{ height: 10, backgroundColor: "white" }}></View>
@@ -40,16 +51,21 @@ const CollectionHome = (props: IProps) => {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
-                    data={data}
+                    data={restaurants}
                     contentContainerStyle={{ gap: 5 }}
                     renderItem={(item) => {
                         return (
-                            <View>
-                                <Image source={demo} style={{ width: 100, height: 100 }} />
+                            <Pressable onPress={() => router.navigate({
+                                pathname: "/product/[id]",
+                                params: { id: item.item._id }
+                            })}>
                                 <View>
-                                    <Text numberOfLines={1} ellipsizeMode="tail" style={{ fontSize: 13, fontWeight: 600, maxWidth: 100, paddingVertical: 10 }}>{item.item.name}</Text>
+                                    <Image source={{ uri: item.item.image }} style={{ width: 100, height: 100 }} />
+                                    <View>
+                                        <Text numberOfLines={1} ellipsizeMode="tail" style={{ fontSize: 13, fontWeight: 600, maxWidth: 100, paddingVertical: 10 }}>{item.item.title}</Text>
+                                    </View>
                                 </View>
-                            </View>
+                            </Pressable>
                         )
                     }}
                 />
