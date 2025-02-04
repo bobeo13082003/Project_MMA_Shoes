@@ -1,67 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { columnsAddmenu } from '../../utils/ColumsTable';
 import { Table } from 'antd';
 import FormAddMenu from '../../components/form/FormAddMenu';
+import { allMenues } from '../../utils/api/ApiMenues';
 
-const data = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser'],
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
-    {
-        key: '4',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
-    {
-        key: '5',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
-    {
-        key: '6',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
-    {
-        key: '7',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
-];
+
 const MenuPage = () => {
+    const [menues, setMenues] = useState([]);
+    const getAllMenues = async () => {
+        try {
+            const res = await allMenues();
+
+            if (res && res.data.code === 200) {
+                setMenues(res.data.data)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(() => {
+        getAllMenues()
+    }, [])
     return (
         <div>
-            <h2>Restaurant</h2>
+            <h2>Menues</h2>
             <div className='mb-2'>
-                <FormAddMenu />
+                <FormAddMenu getAllMenues={getAllMenues} />
             </div>
-            <Table pagination={{ pageSize: 5 }} columns={columnsAddmenu} dataSource={data} />
+            <Table pagination={{ pageSize: 5 }} rowKey="_id" columns={columnsAddmenu} dataSource={menues} />
         </div>
     );
 };

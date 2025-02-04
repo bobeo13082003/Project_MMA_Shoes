@@ -8,7 +8,7 @@ import { createRestaurantSchema } from '../../utils/validate/Validate';
 import { addNewRestaurant } from '../../utils/api/ApiRestaurant';
 import { toast } from 'react-toastify'
 const { Panel } = Collapse;
-const FormAddRestaurant = () => {
+const FormAddRestaurant = ({ getAllRestaurants }: { getAllRestaurants: () => Promise<void> }) => {
     const [image, setImage] = useState<File>();
     const [previewImage, setPreviewImage] = useState<string>("")
 
@@ -19,6 +19,8 @@ const FormAddRestaurant = () => {
             if (res && res.data.code === 201) {
                 toast.success(res.data.message);
                 resetForm()
+                setPreviewImage("")
+                await getAllRestaurants();
             } else {
                 toast.error("Failed to create new restaurant");
             }

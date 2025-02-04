@@ -59,48 +59,63 @@ export const columnsAddRestaurant = [
 ];
 export const columnsAddmenu = [
     {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        render: (text) => <a>{text}</a>,
+        title: 'Title',
+        dataIndex: 'title',
+        key: 'title',
     },
     {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-    },
-    {
-        title: 'Tags',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: (_, { tags }) => (
-            <>
-                {tags.map((tag) => {
-                    let color = tag.length > 5 ? 'geekblue' : 'green';
-                    if (tag === 'loser') {
-                        color = 'volcano';
-                    }
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </>
+        title: 'Image',
+        dataIndex: 'image',
+        key: 'image',
+        render: (image) => (
+            <img
+                src={image}
+                alt="Menue"
+                style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: '8px' }}
+            />
         ),
+    },
+    {
+        title: 'Description',
+        dataIndex: 'description',
+        key: 'description',
+    },
+    {
+        title: 'Price',
+        key: 'price',
+        dataIndex: 'price',
+
+    },
+    {
+        title: 'Is Available',
+        key: 'isAvailable',
+        dataIndex: 'isAvailable',
+        render: (avaiable) => {
+            const color = avaiable === true ? 'green' : 'red';
+            return (
+                <Tag color={color} key={avaiable}>
+                    {avaiable === true ? "Is avalable" : "Not Avaiable"}
+                </Tag>
+            );
+        },
+    },
+    {
+        title: 'Restaurant',
+        key: 'restaurant',
+        dataIndex: 'restaurant',
+        render: (restaurant) => {
+            return (
+                <p className="fw-bold">{restaurant.title}</p>
+            );
+        },
     },
     {
         title: 'Action',
         key: 'action',
         render: (_, record) => (
             <Space size="middle">
-                <a>Invite {record.name}</a>
-                <a>Delete</a>
+                <Button type="primary">Update</Button>
+                <Button danger>Delete</Button>
             </Space>
         ),
     },
