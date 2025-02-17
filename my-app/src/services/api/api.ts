@@ -44,3 +44,12 @@ export const getMenues = (idRestaurant: string) => {
 
     return axios.get<IBackendRes<IMenues>>(url, { params: { idRestaurant } })
 }
+export const getProduct = (idProduct: string) => {
+    const url = `/api/v1/menues/detail-product`;
+    return axios.get<IBackendRes<IProductDetail>>(url, { params: { idProduct } })
+}
+
+export const userOrder = (data: any) => {
+    const url = `/api/v1/orders`;
+    return axios.post(url, data)
+}

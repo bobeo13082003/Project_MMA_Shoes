@@ -15,3 +15,12 @@ export const SignupSchema = Yup.object().shape({
         .required('Password Not Empty'),
     email: Yup.string().email('Invalid email').required('Email Not Empty'),
 });
+
+export const OrderSchema = Yup.object().shape({
+    fullName: Yup.string()
+        .required('Full Name Not Empty'),
+    address: Yup.string()
+        .required('Address Not Empty'),
+    phone: Yup.string()
+        .required('Phone Not Empty'),
+});

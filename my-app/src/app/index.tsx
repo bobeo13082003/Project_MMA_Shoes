@@ -1,58 +1,14 @@
-import { StyleSheet, Text, View } from "react-native"
-import { APP_COLOR } from "@/utils/constant";
-import { router } from "expo-router";
-import { useEffect } from "react";
+import { ErrorBoundary, router } from "expo-router";
+import React, { useEffect, useState } from "react";
 import { account } from "@/services/api/api";
 
 import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync();
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingHorizontal: 10
-    },
-    welcomeText: {
-        flex: 0.6,
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        paddingLeft: 20,
-    },
-    welcomeButton: {
-        flex: 0.4,
-        gap: 15
-    },
-    heading: {
-        fontSize: 40,
-        fontWeight: "600"
-    },
-    body: {
-        marginVertical: 10,
-        fontSize: 30,
-        color: APP_COLOR.ORANGE,
-    },
-    footer: {
-    },
-    btnContainer: {
-
-    },
-    signinContent: {
-        alignItems: "center",
-        paddingTop: 10,
-        borderBottomColor: APP_COLOR.ORANGE,
-        borderBottomWidth: 1,
-        marginHorizontal: 50
-    },
-    signinText: {
-        backgroundColor: "#fff",
-        position: "relative",
-        padding: 10,
-        top: 20
-    }
-})
 
 const RootPage = () => {
+    const [state, setState] = useState<any>()
     const getAccount = async () => {
         try {
             const res = await account();
@@ -68,14 +24,13 @@ const RootPage = () => {
     }
 
     useEffect(() => {
-
-    }, [])
-
-    useEffect(() => {
         async function prepare() {
             try {
-                getAccount()
+                await getAccount()
             } catch (e) {
+                setState(() => {
+                    throw new Error("Can not connect backend")
+                })
                 console.warn(e);
             } finally {
                 // Tell the application to render
@@ -87,8 +42,8 @@ const RootPage = () => {
     }, []);
 
     return (
-        <View>
-        </View>
+        <>
+        </>
     )
 }
 

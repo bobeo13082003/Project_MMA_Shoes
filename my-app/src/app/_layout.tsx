@@ -3,18 +3,14 @@ import Toast, { BaseToast, ErrorToast, ToastConfigParams } from 'react-native-to
 import React from "react";
 import { Text, View } from "react-native";
 import { APP_COLOR } from "@/utils/constant";
-import { DefaultTheme } from "@react-navigation/native";
+// import { DefaultTheme } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "@/redux/store";
-/*
-  1. Create the config
-*/
+
+
 const toastConfig = {
-    /*
-      Overwrite 'success' type,
-      by modifying the existing `BaseToast` component
-    */
+
     success: (props: ToastConfigParams<any>) => (
         <BaseToast
             {...props}
@@ -27,10 +23,6 @@ const toastConfig = {
             }}
         />
     ),
-    /*
-      Overwrite 'error' type,
-      by modifying the existing `ErrorToast` component
-    */
     error: (props: ToastConfigParams<any>) => (
         <ErrorToast
             {...props}
@@ -57,13 +49,13 @@ const toastConfig = {
         )
     }
 };
-const MyTheme = {
-    ...DefaultTheme,
-    colors: {
-        ...DefaultTheme.colors,
-        background: 'transparent'
-    },
-};
+// const MyTheme = {
+//     ...DefaultTheme,
+//     colors: {
+//         ...DefaultTheme.colors,
+//         background: 'transparent'
+//     },
+// };
 
 const RootLayout = () => {
     return (
@@ -71,7 +63,16 @@ const RootLayout = () => {
             {/* <ThemeProvider value={MyTheme}> */}
             <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
-                    <Stack>
+                    <Stack
+                        screenOptions={
+                            {
+                                headerTintColor: APP_COLOR.ORANGE,
+                                headerTitleStyle: {
+                                    color: "black"
+                                }
+                            }
+                        }
+                    >
                         <Stack.Screen name="index" options={{ headerShown: false }} />
                         <Stack.Screen name="(auth)/login" options={{ headerShown: false }} />
                         <Stack.Screen name="(auth)/signup" options={{ headerShown: false }} />
@@ -79,6 +80,8 @@ const RootLayout = () => {
                         <Stack.Screen name="(auth)/vertify" options={{ headerShown: false }} />
                         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                         <Stack.Screen name="product/[id]" options={{ headerTitle: "" }} />
+                        <Stack.Screen name="product/productDetail" options={{ headerTitle: "" }} />
+                        <Stack.Screen name="product/delivery" options={{ headerTitle: "" }} />
                     </Stack>
                     <Toast config={toastConfig} />
                 </PersistGate>

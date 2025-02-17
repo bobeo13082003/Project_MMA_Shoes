@@ -42,6 +42,7 @@ declare global {
     interface IMenuesData {
         _id: string;
         title: string;
+        restaurant: IRestaurantData;
         image: string;
         description: string,
         price: string,
@@ -61,9 +62,28 @@ declare global {
         data: IMenuesData[],
         message: string
     }
+    interface IProductDetail {
+        code: number,
+        data: IMenuesData,
+        message: string
+    }
     interface IRestaurantDetail {
         code: number,
         data: IRestaurantData,
         message: string
+    }
+
+    interface ICart {
+        [restaurantId: string]: {
+            sum: number;
+            title: String
+            quantity: number;
+            items: {
+                [productId: string]: {
+                    quantity: number;
+                    data: IMenuesData;
+                };
+            };
+        };
     }
 }
