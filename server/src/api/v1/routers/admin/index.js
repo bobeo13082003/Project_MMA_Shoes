@@ -1,5 +1,5 @@
 const restaurantRoute = require('./restaurants.roter')
-const menuRoute = require('../client/menues.roter')
+const menuRoute = require('./menues.roter')
 const authRoute = require('./auths.router')
 module.exports = (app) => {
     const api = "/api/v1";
