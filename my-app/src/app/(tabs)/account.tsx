@@ -3,50 +3,57 @@ import { AppDispatch } from "@/redux/store";
 import { router } from "expo-router";
 import { View, Text, TextInput, Image, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import { Feather, MaterialIcons } from "@expo/vector-icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux"
+import { getProfile } from "@/services/api/api";
 
 const Account = () => {
+
     const dispatch = useDispatch<AppDispatch>();
+    const [profile, setProfile] = useState<IProfileData>();
     const handleLogout = () => {
         dispatch(userLogout())
         router.replace("/(auth)/wellcome")
     }
+    const userProfile = async () => {
+        try {
+            const res = await getProfile();
+            if (res && res.data?.code === 200) {
+                setProfile(res.data.data)
+            }
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
+    useEffect(() => {
+        userProfile()
+    }, [])
+
     return (
-        // <View>
-        //     <Text>Account</Text>
-        //     <Button title="Logout" onPress={handleLogout} />
-        // </View>
         <ScrollView style={styles.container}>
-            {/* Header */}
             <View style={styles.header}>
                 <Image
-                    source={{ uri: "https://via.placeholder.com/100" }}
+                    source={{ uri: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" }}
                     style={styles.avatar}
                 />
             </View>
 
-            {/* User Info */}
             <View style={styles.infoContainer}>
-                <Text style={styles.label}>Name</Text>
-                <TextInput style={styles.input} value="Sophia Patel" editable={false} />
+                <Text style={styles.label}>User Name</Text>
+                <TextInput style={styles.input} value={profile?.userName} editable={false} />
 
                 <Text style={styles.label}>Email</Text>
-                <TextInput style={styles.input} value="sophiapatel@gmail.com" editable={false} />
+                <TextInput style={styles.input} value={profile?.email} editable={false} />
 
-                <Text style={styles.label}>Delivery address</Text>
-                <TextInput style={styles.input} value="123 Main St Apartment 4A, New York, NY" editable={false} />
-
-                <Text style={styles.label}>Password <Feather name="lock" size={16} color="gray" /></Text>
-                <TextInput style={styles.input} value="********" secureTextEntry editable={false} />
             </View>
 
-            {/* Buttons */}
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.editButton}>
+                {/* <TouchableOpacity style={styles.editButton}>
                     <Text style={styles.buttonText}>Edit Profile</Text>
                     <Feather name="edit" size={20} color="white" style={styles.icon} />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
                     <Text style={styles.logoutText}>Log out</Text>

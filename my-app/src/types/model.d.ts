@@ -51,6 +51,11 @@ declare global {
         updatedAt: Date;
     }
 
+    interface IProfileData {
+        userName: string,
+        email: string
+    }
+
     interface IRestaurant {
         code: number,
         data: IRestaurantData[],
@@ -70,6 +75,12 @@ declare global {
     interface IRestaurantDetail {
         code: number,
         data: IRestaurantData,
+        message: string
+    }
+
+    interface IProfile {
+        code: number,
+        data: IProfileData,
         message: string
     }
 

@@ -53,3 +53,8 @@ export const userOrder = (data: any) => {
     const url = `/api/v1/orders`;
     return axios.post(url, data)
 }
+
+export const getProfile = () => {
+    const url = `/api/v1/auth/profile`;
+    return axios.get<IBackendRes<IProfile>>(url);
+}

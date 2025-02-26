@@ -1,8 +1,7 @@
-import { RootState, store } from '@/redux/store';
+import { store } from '@/redux/store';
 import axios from 'axios'
 import { Platform } from 'react-native';
-import { useSelector } from 'react-redux';
-import React from 'react';
+
 
 const apiBackend = Platform.OS === "android"
   ? process.env.EXPO_PUBLIC_ANDROID_API_URL

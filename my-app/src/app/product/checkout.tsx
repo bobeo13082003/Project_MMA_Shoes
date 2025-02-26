@@ -6,8 +6,9 @@ import { RootState } from '@/redux/store';
 import { userDelivery } from '@/redux/slices/userSlice';
 import { userOrder } from '@/services/api/api';
 import { toast } from '@/utils/toast';
+import { router } from 'expo-router';
 
-export default function Checkout({ handleSubmit, formValue, restaurantId }: any) {
+export default function Checkout({ handleSubmit, formValue, restaurantId, navigation }: any) {
     const dispatch = useDispatch()
     const order = useSelector((state: RootState) => state.user.order || {});
     const orderItems = Object.entries(order)
@@ -42,7 +43,7 @@ export default function Checkout({ handleSubmit, formValue, restaurantId }: any)
             const res = await userOrder(data)
             if (res && res.data.code === 200) {
                 toast('success', 'Check out successfully')
-                dispatch(userDelivery({ restaurantId }))
+                // dispatch(userDelivery({ restaurantId }))
             }
         } catch (error) {
             console.error('Error placing order for restaurant', error);
@@ -50,17 +51,20 @@ export default function Checkout({ handleSubmit, formValue, restaurantId }: any)
 
         handleSubmit();
     }
+    const hadnleCheckout = () => {
+        router.navigate({ pathname: "/product/VNPayScreen", params: { orderId: "123456", amount: 10000 } })
+    }
     return (
         <View style={styles.footer}>
             <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-around", gap: 5 }}>
-                <Pressable onPress={() => setSelectedMethod("VNPAY")} style={[styles.textStyle, selectedMethod === "VNPAY" && styles.selected]}>
+                <Pressable onPress={() => hadnleCheckout()} style={[styles.textStyle, selectedMethod === "VNPAY" && styles.selected]}>
                     <Text>VNPAY</Text>
                 </Pressable>
                 <Pressable onPress={() => setSelectedMethod("CASH")} style={[styles.textStyle, selectedMethod === "CASH" && styles.selected]}>
                     <Text>CASH</Text>
                 </Pressable>
             </View>
-            <Pressable onPress={handleDelivery} style={{ borderWidth: 1, alignItems: "center", justifyContent: "center", borderColor: APP_COLOR.ORANGE, backgroundColor: APP_COLOR.ORANGE }}>
+            <Pressable onPress={hadnleCheckout} style={{ borderWidth: 1, alignItems: "center", justifyContent: "center", borderColor: APP_COLOR.ORANGE, backgroundColor: APP_COLOR.ORANGE }}>
                 <Text style={{ padding: 17, color: "#fff", fontSize: 15, fontWeight: 500 }}>Place an order - ${totalPrice}</Text>
             </Pressable>
         </View>
