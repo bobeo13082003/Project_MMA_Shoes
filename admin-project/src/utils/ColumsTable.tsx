@@ -1,5 +1,8 @@
 import { Button, Space, Tag } from "antd";
 import React from "react";
+import ButtonTable from "../components/button/ButtonTable";
+
+
 export const columnsAddRestaurant = [
     {
         title: 'Title',
@@ -49,12 +52,7 @@ export const columnsAddRestaurant = [
     {
         title: 'Action',
         key: 'action',
-        render: (_, record) => (
-            <Space size="middle">
-                <Button type="primary">Update</Button>
-                <Button danger>Delete</Button>
-            </Space>
-        ),
+
     },
 ];
 export const columnsAddmenu = [
@@ -112,11 +110,6 @@ export const columnsAddmenu = [
     {
         title: 'Action',
         key: 'action',
-        render: (_, record) => (
-            <Space size="middle">
-                <Button type="primary">Update</Button>
-                <Button danger>Delete</Button>
-            </Space>
-        ),
+
     },
 ];
