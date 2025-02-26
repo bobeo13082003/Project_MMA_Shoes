@@ -2,6 +2,7 @@ const authRoute = require('./auths.router')
 const restaurantRoute = require('./restaurants.router')
 const menuRoute = require('./menues.roter')
 const orderRoute = require('./order.router')
+const vnpayRoute = require('./payment.router')
 
 module.exports = (app) => {
     const api = "/api/v1";
@@ -9,5 +10,6 @@ module.exports = (app) => {
     app.use(api + '/restaurant', restaurantRoute)
     app.use(api + '/menues', menuRoute)
     app.use(api + '/orders', orderRoute)
+    app.use(api + '/', vnpayRoute)
 
 }

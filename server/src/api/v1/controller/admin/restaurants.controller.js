@@ -30,3 +30,36 @@ module.exports.getAllRestaurant = async (req, res) => {
     }
 }
 
+// [PUT] api/v1/restaurant/edit-restaurant
+module.exports.editRestaurant = async (req, res) => {
+    try {
+        const id = req.params.id;
+        await Restaurants.updateOne({
+            _id: id
+        }, req.body);
+        res.status(200).json({
+            code: 200,
+            message: "Update Restaurants Successfully",
+        })
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+// [DELETE] api/v1/restaurant/delete-restaurant
+module.exports.deleteRestaurant = async (req, res) => {
+    try {
+        const id = req.params.id;
+        await Restaurants
+            .updateOne({
+                _id: id
+            }, { deleted: true });
+        res.status(200).json({
+            code: 200,
+            message: "Delete Restaurants Successfully",
+        })
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+

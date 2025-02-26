@@ -433,7 +433,7 @@ module.exports.profile = async (req, res) => {
         }).select("email userName")
         res.status(200).json({
             code: 200,
-            user,
+            data: user,
             message: "Get Profile Successfully"
         })
     } catch (error) {

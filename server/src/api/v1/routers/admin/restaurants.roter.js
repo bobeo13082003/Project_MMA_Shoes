@@ -16,7 +16,14 @@ routes.get('/all-restaurant',
     Authorization.AuthorizationAdmin,
     controller.getAllRestaurant
 )
-
+routes.put('/edit-restaurant/:id',
+    Authorization.AuthorizationAdmin,
+    upload.single('image'),
+    uploadCloud.uploadCloud,
+    controller.editRestaurant)
+routes.delete('/delete-restaurant/:id',
+    Authorization.AuthorizationAdmin,
+    controller.deleteRestaurant)
 
 
 module.exports = routes;

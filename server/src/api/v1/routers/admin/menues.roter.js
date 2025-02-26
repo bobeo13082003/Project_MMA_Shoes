@@ -14,6 +14,15 @@ routes.post('/new-menues',
 routes.get('/all-menues',
     Authorization.AuthorizationAdmin,
     controller.allMenu)
+routes.put('/edit-menue/:id',
+    Authorization.AuthorizationAdmin,
+    upload.single('image'),
+    uploadCloud.uploadCloud,
+    controller.editMenu)
+
+routes.delete('/delete-menue/:id',
+    Authorization.AuthorizationAdmin,
+    controller.deleteMenu)
 
 
 
