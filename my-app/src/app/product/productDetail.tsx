@@ -54,14 +54,14 @@ const ProductDetailPage = () => {
                         }))} name="squared-plus" size={27} color={APP_COLOR.ORANGE} />
                     </View>
                     <View style={styles.bottomButtons}>
-                        <Text style={{ color: APP_COLOR.ORANGE, fontWeight: 600, fontSize: 20 }}>Price: ${product?.price}</Text>
+                        <Text style={{ color: APP_COLOR.ORANGE, fontWeight: 600, fontSize: 20 }}>Price: {product?.price} VND</Text>
                         <TouchableOpacity style={styles.orderButton}>
                             <Text style={styles.orderText}>ORDER NOW</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             </ScrollView>
-            <OrderItem />
+            <OrderItem restaurantId={product?.restaurant._id as string} />
         </View>
     );
 };

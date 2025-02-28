@@ -50,6 +50,8 @@ export const getProduct = (idProduct: string) => {
 }
 
 export const userOrder = (data: any) => {
+    console.log(data);
+
     const url = `/api/v1/orders`;
     return axios.post(url, data)
 }
@@ -57,4 +59,17 @@ export const userOrder = (data: any) => {
 export const getProfile = () => {
     const url = `/api/v1/auth/profile`;
     return axios.get<IBackendRes<IProfile>>(url);
+}
+
+export const createPayment = (amount: number) => {
+    const url = `/api/v1/create_payment_url`;
+    return axios.post(url, { amount, bankCode: "NCB", language: "vn" });
+}
+
+export const checkPaymentStatus = (queryParams: any) => {
+    return axios.get(`/api/v1/vnpay_return`, { params: queryParams })
+};
+
+export const getOrderHistory = () => {
+    return axios.get('api/v1/orders/order-history')
 }

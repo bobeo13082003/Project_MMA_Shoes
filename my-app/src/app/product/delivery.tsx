@@ -38,7 +38,6 @@ const Delivery = () => {
                             <ShareInput error={errors.address} onChangeText={handleChange('address')} onBlur={handleBlur('address')} value={values.address} title="Address" />
                             <ShareInput error={errors.phone} onChangeText={handleChange('phone')} onBlur={handleBlur('phone')} value={values.phone} title="Phone" />
 
-                            {/* Hiển thị các sản phẩm trong đơn hàng */}
                             <FlatList
                                 data={orderItems}
                                 keyExtractor={(item, index) => String(item.title) + index}
@@ -65,7 +64,7 @@ const Delivery = () => {
                                                     );
                                                 }}
                                             />
-                                            <Text style={styles.totalText}>Total: ${restaurantData.sum}</Text>
+                                            <Text style={styles.totalText}>Total: {restaurantData.sum} VND</Text>
                                         </View>
                                     );
                                 }}

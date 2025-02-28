@@ -87,7 +87,7 @@ const ProductDetailScreen = () => {
                                 </Text>
                                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                                     <Text style={{ color: APP_COLOR.ORANGE, fontSize: 16, fontWeight: "500" }}>
-                                        {item.price}$
+                                        {item.price} VND
                                     </Text>
                                     <Entypo onPress={() => handleOrder(item)} name="squared-plus" size={27} color={APP_COLOR.ORANGE} />
                                 </View>

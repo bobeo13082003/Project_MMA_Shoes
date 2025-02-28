@@ -35,7 +35,7 @@ export default function OrderItem({ restaurantId }: { restaurantId: string }) {
                         {totalQuantity}
                     </Text>
                 </View>
-                <Text style={{ color: APP_COLOR.ORANGE, fontWeight: 600, fontSize: 18 }}>${totalPrice}</Text>
+                <Text style={{ color: APP_COLOR.ORANGE, fontWeight: 600, fontSize: 18 }}>{totalPrice} VND</Text>
             </View>
             <Pressable onPress={handleDelivery} style={({ pressed }) => ([{ opacity: pressed === true ? 0.5 : 1 }, { flex: 0.3, backgroundColor: APP_COLOR.ORANGE, width: "100%", alignItems: "center", justifyContent: "center" }])}>
                 <Text style={{ color: "#fff" }}>Delivery</Text>

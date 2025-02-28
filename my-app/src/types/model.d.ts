@@ -56,6 +56,22 @@ declare global {
         email: string
     }
 
+    interface IOrderHistoryData {
+        _id: string,
+        userId: string,
+        restaurantId: string,
+        totalPrice: number,
+        totalQuantity: number,
+        orderItems: IMenuesData[],
+        fullName: string,
+        address: string,
+        phone: string,
+        status: string,
+        payment: string,
+        createdAt: Date,
+        updatedAt: Date,
+    }
+
     interface IRestaurant {
         code: number,
         data: IRestaurantData[],
@@ -81,6 +97,12 @@ declare global {
     interface IProfile {
         code: number,
         data: IProfileData,
+        message: string
+    }
+
+    interface IOrderHistory {
+        code: number,
+        data: IOrderHistoryData[],
         message: string
     }
 

@@ -1,6 +1,7 @@
 const { default: mongoose } = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
+    userId: String,
     restaurantId: { type: String, required: true },
     totalPrice: { type: Number, required: true },
     totalQuantity: { type: Number, required: true },
@@ -16,6 +17,7 @@ const orderSchema = new mongoose.Schema({
     address: { type: String, required: true },
     phone: { type: String, required: true },
     status: { type: String, enum: ["PENDING", "CONFIRMED", "DELIVERED", "CANCELLED"], default: "PENDING" },
+    payment: String
 }, {
     timestamps: true
 })

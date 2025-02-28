@@ -17,12 +17,13 @@ export default function Checkout({ handleSubmit, formValue, restaurantId, naviga
 
     const totalPrice = orderItems.reduce((acc, restaurant) => acc + restaurant.sum, 0);
     const [selectedMethod, setSelectedMethod] = useState<"VNPAY" | "CASH" | null>("CASH");
-    const handleDelivery = async () => {
+    const saveOrder = async () => {
         try {
             if (!formValue.fullName || !formValue.address || !formValue.phone) {
-                toast('error', 'Please fill your information')
-                return;
+                toast('error', 'Please fill in your information');
+                return null;
             }
+
             const restaurantData = order[restaurantId];
             const formattedOrderItems = Object.values(restaurantData.items).map((item: any) => ({
                 title: item.data.title,
@@ -39,33 +40,52 @@ export default function Checkout({ handleSubmit, formValue, restaurantId, naviga
                 fullName: formValue.fullName,
                 address: formValue.address,
                 phone: formValue.phone,
+                payment: selectedMethod
             };
-            const res = await userOrder(data)
-            if (res && res.data.code === 200) {
-                toast('success', 'Check out successfully')
-                // dispatch(userDelivery({ restaurantId }))
+            console.log(data);
+
+
+            const res = await userOrder(data);
+
+            if (res && res.data && res.data.code === 200) {
+                dispatch(userDelivery({ restaurantId }));
+                return res.data.data;
+            } else {
+                toast('error', 'Failed to place order');
+                return null;
             }
         } catch (error) {
-            console.error('Error placing order for restaurant', error);
+            console.error('Error placing order:', error);
+            return null;
         }
+    }
 
-        handleSubmit();
-    }
-    const hadnleCheckout = () => {
-        router.navigate({ pathname: "/product/VNPayScreen", params: { orderId: "123456", amount: 10000 } })
-    }
+    const handleCheckout = async () => {
+        const orderData = await saveOrder();
+
+        if (!orderData) return;
+
+        if (selectedMethod === "VNPAY") {
+            router.navigate({ pathname: "/product/VNPayScreen", params: { amount: totalPrice } });
+        } else if (selectedMethod === "CASH") {
+
+            handleSubmit();
+            router.replace("/(tabs)/order")
+        }
+    };
+
     return (
         <View style={styles.footer}>
             <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-around", gap: 5 }}>
-                <Pressable onPress={() => hadnleCheckout()} style={[styles.textStyle, selectedMethod === "VNPAY" && styles.selected]}>
+                <Pressable onPress={() => setSelectedMethod("VNPAY")} style={[styles.textStyle, selectedMethod === "VNPAY" && styles.selected]}>
                     <Text>VNPAY</Text>
                 </Pressable>
                 <Pressable onPress={() => setSelectedMethod("CASH")} style={[styles.textStyle, selectedMethod === "CASH" && styles.selected]}>
                     <Text>CASH</Text>
                 </Pressable>
             </View>
-            <Pressable onPress={hadnleCheckout} style={{ borderWidth: 1, alignItems: "center", justifyContent: "center", borderColor: APP_COLOR.ORANGE, backgroundColor: APP_COLOR.ORANGE }}>
-                <Text style={{ padding: 17, color: "#fff", fontSize: 15, fontWeight: 500 }}>Place an order - ${totalPrice}</Text>
+            <Pressable onPress={handleCheckout} style={{ borderWidth: 1, alignItems: "center", justifyContent: "center", borderColor: APP_COLOR.ORANGE, backgroundColor: APP_COLOR.ORANGE }}>
+                <Text style={{ padding: 17, color: "#fff", fontSize: 15, fontWeight: 500 }}>Place an order - {totalPrice} VND</Text>
             </Pressable>
         </View>
     )
