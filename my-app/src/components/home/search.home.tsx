@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View } from "react-native"
+import { Pressable, StyleSheet, Text, View } from "react-native"
 import EvilIcons from '@expo/vector-icons/EvilIcons';
+import { router } from "expo-router";
 
 
 const styles = StyleSheet.create({
@@ -16,10 +17,12 @@ const styles = StyleSheet.create({
 
 const Search = () => {
     return (
-        <View style={styles.container}>
-            <EvilIcons name="search" size={20} color="black" />
-            <Text style={{ fontWeight: "300" }}>Search</Text>
-        </View>
+        <Pressable onPress={() => router.navigate("/(auth)/search")}>
+            <View style={styles.container}>
+                <EvilIcons name="search" size={20} color="black" />
+                <Text style={{ fontWeight: "300" }}>Search</Text>
+            </View>
+        </Pressable>
     )
 }
 

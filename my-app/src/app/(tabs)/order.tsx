@@ -34,7 +34,7 @@ const Order = () => {
                     return (
                         <>
                             {item.orderItems.map((order) => (
-                                <View style={style.item}>
+                                <View key={order._id} style={style.item}>
                                     <View>
                                         <Image style={style.image} source={{ uri: order.image }} />
                                     </View>

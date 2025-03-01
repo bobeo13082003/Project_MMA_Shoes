@@ -42,7 +42,9 @@ const CollectionHome = (props: IProps) => {
             <View style={styles.item}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                     <Text style={{ fontSize: 18, fontWeight: "600", color: APP_COLOR.ORANGE }}>{name}</Text>
-                    <Text style={{ color: "gray" }}>View all</Text>
+                    <Pressable onPress={() => router.navigate("/product/viewAllRestaurant")}>
+                        <Text style={{ color: "gray" }}>View all</Text>
+                    </Pressable>
                 </View>
                 <View>
                     <Text style={{ color: "grey" }}>{description}</Text>

@@ -1,5 +1,5 @@
 const Restaurants = require("../../model/restaurant");
-
+const paginationHelper = require("../../../../helper/pagination")
 // [GET] api/v1/restaurant/top-5
 module.exports.getTop5Restaurant = async (req, res) => {
     try {
@@ -73,5 +73,60 @@ module.exports.detailRestaurant = async (req, res) => {
         })
     } catch (error) {
         res.status(500).json(error)
+    }
+}
+
+// api/v1/search-restaurant
+module.exports.searchRestaurant = async (req, res) => {
+    try {
+        const regex = new RegExp(req.query.title, "i");
+        const restaurant = await Restaurants.find({
+            deleted: false,
+            status: "active",
+            title: regex
+        })
+            .select("image title")
+            .limit(5)
+        res.json({
+            code: 200,
+            data: restaurant
+        })
+    } catch (error) {
+        res.json(error)
+    }
+}
+
+// [GET] api/v1/restaurant/all-restaurant
+module.exports.allRestaurants = async (req, res) => {
+    try {
+        const allRestaurants = await Restaurants.countDocuments({
+            deleted: false,
+            status: "active"
+        })
+        const objectPagination = paginationHelper(
+            {
+                currentPage: 1,
+                limit: 4
+            },
+            allRestaurants,
+            req.query
+        )
+        const restaurants = await Restaurants.find({
+            deleted: false,
+            status: "active"
+        })
+            .limit(objectPagination.limit)
+            .skip(objectPagination.skip)
+            .sort({ createdAt: -1 })
+            .select("image title")
+
+        res.json({
+            code: 200,
+            data: restaurants,
+            totalPage: objectPagination.totalPage,
+            message: "Get all restaurant successfully"
+        })
+    } catch (error) {
+        res.json(error)
     }
 }

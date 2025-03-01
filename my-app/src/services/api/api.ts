@@ -73,3 +73,11 @@ export const checkPaymentStatus = (queryParams: any) => {
 export const getOrderHistory = () => {
     return axios.get('api/v1/orders/order-history')
 }
+
+export const searchRestaurant = (search: string) => {
+    return axios.get(`api/v1/restaurant/search-restaurant?title=${search}`)
+}
+
+export const allRestaurants = (query: string) => {
+    return axios.get(`api/v1/restaurant/${query}`)
+}

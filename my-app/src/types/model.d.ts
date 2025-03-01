@@ -106,6 +106,15 @@ declare global {
         message: string
     }
 
+    interface ISearchRestaurantData {
+        _id: string,
+        image: string,
+        title: string,
+    }
+    interface ISearchRestaurant {
+        code: number,
+        data: ISearchRestaurantData[]
+    }
     interface ICart {
         [restaurantId: string]: {
             sum: number;

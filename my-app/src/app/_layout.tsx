@@ -83,6 +83,8 @@ const RootLayout = () => {
                         <Stack.Screen name="product/productDetail" options={{ headerTitle: "" }} />
                         <Stack.Screen name="product/delivery" options={{ headerTitle: "" }} />
                         <Stack.Screen name="product/VNPayScreen" options={{ headerTitle: "" }} />
+                        <Stack.Screen name="(auth)/search" options={{ headerShown: false }} />
+                        <Stack.Screen name="product/viewAllRestaurant" options={{ headerTitle: "All Restaurant" }} />
                     </Stack>
                     <Toast config={toastConfig} />
                 </PersistGate>
