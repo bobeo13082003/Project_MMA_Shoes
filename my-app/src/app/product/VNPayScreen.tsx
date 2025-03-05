@@ -7,10 +7,10 @@ import { toast } from '@/utils/toast';
 
 const VNPayScreen = () => {
     const [paymentUrl, setPaymentUrl] = useState(null);
-    const { amount } = useLocalSearchParams();
+    const { amount, orderId } = useLocalSearchParams();
     const handlePayment = async () => {
         try {
-            const response = await createPayment(Number(amount) * 1000)
+            const response = await createPayment((Number(amount) * 1000), orderId as string)
             if (response) {
                 setPaymentUrl(response.data)
             }

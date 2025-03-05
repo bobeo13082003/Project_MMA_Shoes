@@ -17,6 +17,7 @@ export default function Checkout({ handleSubmit, formValue, restaurantId, naviga
 
     const totalPrice = orderItems.reduce((acc, restaurant) => acc + restaurant.sum, 0);
     const [selectedMethod, setSelectedMethod] = useState<"VNPAY" | "CASH" | null>("CASH");
+    const [orderId, setOrderId] = useState("");
     const saveOrder = async () => {
         try {
             if (!formValue.fullName || !formValue.address || !formValue.phone) {
@@ -42,13 +43,12 @@ export default function Checkout({ handleSubmit, formValue, restaurantId, naviga
                 phone: formValue.phone,
                 payment: selectedMethod
             };
-            console.log(data);
-
 
             const res = await userOrder(data);
 
             if (res && res.data && res.data.code === 200) {
                 dispatch(userDelivery({ restaurantId }));
+                setOrderId(res.data.data._id)
                 return res.data.data;
             } else {
                 toast('error', 'Failed to place order');
@@ -66,7 +66,7 @@ export default function Checkout({ handleSubmit, formValue, restaurantId, naviga
         if (!orderData) return;
 
         if (selectedMethod === "VNPAY") {
-            router.navigate({ pathname: "/product/VNPayScreen", params: { amount: totalPrice } });
+            router.navigate({ pathname: "/product/VNPayScreen", params: { amount: totalPrice, orderId: orderData?._id } });
         } else if (selectedMethod === "CASH") {
 
             handleSubmit();

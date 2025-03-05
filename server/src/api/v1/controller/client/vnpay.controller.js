@@ -33,7 +33,7 @@ module.exports.createPayment = async (req, res) => {
     let secretKey = process.env.VNPAY_HASH_SECRET;
     let vnpUrl = process.env.VNPAY_PAYMENT_URL;
     let returnUrl = process.env.VNPAY_RETURN_URL;
-    let orderId = moment(date).format('DDHHmmss');
+    let orderId = req.body.orderId;
     let amount = req.body.amount;
     let bankCode = req.body.bankCode;
 
@@ -76,9 +76,8 @@ module.exports.returnVnpay = async (req, res) => {
     let vnp_Params = req.query;
     const authHeader = req.header("Authorization");
     const token = authHeader && authHeader.split(" ")[1];
-
     let secureHash = vnp_Params['vnp_SecureHash'];
-
+    let orderId = vnp_Params['vnp_TxnRef'];
     delete vnp_Params['vnp_SecureHash'];
     delete vnp_Params['vnp_SecureHashType'];
 
@@ -99,6 +98,7 @@ module.exports.returnVnpay = async (req, res) => {
         if (vnp_Params['vnp_ResponseCode'] === '00') {
             await Orders.updateOne({
                 userId: token,
+                _id: orderId,
                 status: "PENDING",
                 payment: "VNPAY"
             }, { status: "CONFIRMED" });

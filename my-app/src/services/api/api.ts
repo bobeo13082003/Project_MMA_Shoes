@@ -61,13 +61,16 @@ export const getProfile = () => {
     return axios.get<IBackendRes<IProfile>>(url);
 }
 
-export const createPayment = (amount: number) => {
+export const createPayment = (amount: number, orderId: string) => {
     const url = `/api/v1/create_payment_url`;
-    return axios.post(url, { amount, bankCode: "NCB", language: "vn" });
+    return axios.post(url, { amount, bankCode: "NCB", language: "vn", orderId });
 }
 
 export const checkPaymentStatus = (queryParams: any) => {
-    return axios.get(`/api/v1/vnpay_return`, { params: queryParams })
+    return axios.get(`/api/v1/vnpay_return`, {
+        params: queryParams,
+
+    })
 };
 
 export const getOrderHistory = () => {
