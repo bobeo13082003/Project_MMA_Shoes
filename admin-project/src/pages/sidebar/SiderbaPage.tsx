@@ -7,6 +7,7 @@ import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     PieChartOutlined,
+    ShoppingCartOutlined,
 } from '@ant-design/icons';
 import { Button, Menu } from 'antd';
 import { useNavigate } from "react-router-dom";
@@ -20,7 +21,7 @@ const items = [
     {
         key: '/restaurant',
         icon: <DesktopOutlined />,
-        label: 'Restaurant',
+        label: 'Restaurants',
     },
     {
         key: '/menues',
@@ -28,25 +29,25 @@ const items = [
         label: 'Menues',
     },
     {
-        key: 'sub1',
-        label: 'Navigation One',
-        icon: <MailOutlined />,
+        key: '',
+        label: 'Orders',
+        icon: <ShoppingCartOutlined />,
         children: [
             {
-                key: '5',
-                label: 'Option 5',
+                key: '/order',
+                label: 'All Order',
             },
             {
-                key: '6',
-                label: 'Option 6',
+                key: '/order/pending',
+                label: 'Pending',
             },
             {
-                key: '7',
-                label: 'Option 7',
+                key: '/order/confirm',
+                label: 'Confirmed',
             },
             {
-                key: '8',
-                label: 'Option 8',
+                key: '/order/cancel',
+                label: 'Cancelled',
             },
         ],
     },

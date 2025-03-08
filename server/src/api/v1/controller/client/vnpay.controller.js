@@ -103,6 +103,15 @@ module.exports.returnVnpay = async (req, res) => {
                 payment: "VNPAY"
             }, { status: "CONFIRMED" });
             res.json({ success: true, Message: "Thanh toán thành công" });
+        } else if (vnp_Params['vnp_ResponseCode'] === '24') {
+            //Nguoi dung huy thanh toan
+            await Orders.updateOne({
+                userId: token,
+                _id: orderId,
+                status: "PENDING",
+                payment: "VNPAY"
+            }, { status: "CANCELLED" });
+            res.json({ success: true, Message: "Thanh toán không thành công do huy thanh toán" });
         } else {
             return res.json({ success: false, message: "Thanh toán thất bại!" });
         }

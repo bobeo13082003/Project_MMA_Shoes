@@ -9,6 +9,7 @@ import App from './App';
 import Dashboard from './pages/dashboard/Dashboard';
 import Restaurant from './pages/restaurant/Restaurant';
 import MenuPage from './pages/menu/MenuPage';
+import Order from './pages/order/Order';
 const Layout = () => {
     return (
         <>
@@ -17,6 +18,7 @@ const Layout = () => {
                     <Route index element={<Dashboard />} />
                     <Route path='/restaurant' element={<Restaurant />} />
                     <Route path='/menues' element={<MenuPage />} />
+                    <Route path='/order' element={<Order />} />
                 </Route>
                 <Route path='/login' element={<LoginPage />} />
             </Routes>

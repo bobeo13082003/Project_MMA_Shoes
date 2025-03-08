@@ -8,11 +8,11 @@ export const addNewRestaurant = (title, image, phone, address, email) => {
     formData.append("address", address);
     formData.append("email", email);
 
-    return axios.post('/restaurant/new-restaurant', formData)
+    return axios.post('admin/restaurant/new-restaurant', formData)
 }
 
 export const allRestaurants = () => {
-    return axios.get('restaurant/all-restaurant')
+    return axios.get('admin/restaurant/all-restaurant')
 }
 
 export const updateRestaurant = (id, values) => {
@@ -23,10 +23,8 @@ export const updateRestaurant = (id, values) => {
     formData.append("email", values.email);
 
     formData.append("image", values.image);
-    return axios.put(`/restaurant/edit-restaurant/${id}`, formData)
+    return axios.put(`admin/restaurant/edit-restaurant/${id}`, formData)
 }
 export const deleteRestaurant = (id) => {
-    console.log(id);
-
-    return axios.delete(`/restaurant/delete-restaurant/${id}`)
+    return axios.delete(`admin/restaurant/delete-restaurant/${id}`)
 }

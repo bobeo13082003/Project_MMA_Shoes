@@ -50,8 +50,6 @@ export const getProduct = (idProduct: string) => {
 }
 
 export const userOrder = (data: any) => {
-    console.log(data);
-
     const url = `/api/v1/orders`;
     return axios.post(url, data)
 }
