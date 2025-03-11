@@ -116,59 +116,52 @@ export const columnsAddmenu = [
 
 export const columnsOrder = [
     {
-        title: 'Title',
-        dataIndex: 'title',
-        key: 'title',
+        title: 'Email',
+        dataIndex: ['user', 'email'],
+        key: 'email',
     },
     {
-        title: 'Image',
-        dataIndex: 'image',
-        key: 'image',
-        render: (image) => (
-            <img
-                src={image}
-                alt="Menue"
-                style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: '8px' }}
-            />
-        ),
+        title: 'Phone',
+        dataIndex: 'phone',
+        key: 'phone',
     },
     {
-        title: 'Description',
-        dataIndex: 'description',
-        key: 'description',
+        title: 'Total Price',
+        dataIndex: 'totalPrice',
+        key: 'totalPrice',
+        render: (totalPrice) => `${totalPrice} VND`
     },
     {
-        title: 'Price',
-        key: 'price',
-        dataIndex: 'price',
+        title: 'Total Quantity',
+        key: 'totalQuantity',
+        dataIndex: 'totalQuantity',
 
     },
     {
-        title: 'Is Available',
-        key: 'isAvailable',
-        dataIndex: 'isAvailable',
-        render: (avaiable) => {
-            const color = avaiable === true ? 'green' : 'red';
+        title: 'Status',
+        key: 'status',
+        dataIndex: 'status',
+        filters: [
+            { text: 'Pending', value: 'PENDING' },
+            { text: 'Confirmed', value: 'CONFIRMED' },
+        ],
+        onFilter: (value, record) => record.status === value,
+        render: (status) => {
+            const color = status === "PENDING" ? 'red' : status === "CONFIRMED" ? "green" : "red";
             return (
-                <Tag color={color} key={avaiable}>
-                    {avaiable === true ? "Is avalable" : "Not Avaiable"}
+                <Tag color={color} key={status}>
+                    {status}
                 </Tag>
-            );
-        },
-    },
-    {
-        title: 'Restaurant',
-        key: 'restaurant',
-        dataIndex: 'restaurant',
-        render: (restaurant) => {
-            return (
-                <p className="fw-bold">{restaurant.title}</p>
             );
         },
     },
     {
         title: 'Action',
         key: 'action',
-
+        render: (_, record) => (
+            <>
+                <Button type="primary">Detail</Button>
+            </>
+        )
     },
 ];

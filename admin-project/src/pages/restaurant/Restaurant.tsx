@@ -17,7 +17,6 @@ const Restaurant = () => {
                     ...item,
                     type: "restaurant"
                 }));
-                console.log(res.data.data);
 
                 setRestaurants(updatedData)
             }

@@ -29,56 +29,9 @@ const items = [
         label: 'Menues',
     },
     {
-        key: '',
+        key: '/order',
         label: 'Orders',
         icon: <ShoppingCartOutlined />,
-        children: [
-            {
-                key: '/order',
-                label: 'All Order',
-            },
-            {
-                key: '/order/pending',
-                label: 'Pending',
-            },
-            {
-                key: '/order/confirm',
-                label: 'Confirmed',
-            },
-            {
-                key: '/order/cancel',
-                label: 'Cancelled',
-            },
-        ],
-    },
-    {
-        key: 'sub2',
-        label: 'Navigation Two',
-        icon: <AppstoreOutlined />,
-        children: [
-            {
-                key: '9',
-                label: 'Option 9',
-            },
-            {
-                key: '10',
-                label: 'Option 10',
-            },
-            {
-                key: 'sub3',
-                label: 'Submenu',
-                children: [
-                    {
-                        key: '11',
-                        label: 'Option 11',
-                    },
-                    {
-                        key: '12',
-                        label: 'Option 12',
-                    },
-                ],
-            },
-        ],
     },
 ];
 const SidebarPage = () => {
