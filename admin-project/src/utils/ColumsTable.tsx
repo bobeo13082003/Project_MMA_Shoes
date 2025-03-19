@@ -114,7 +114,7 @@ export const columnsAddmenu = [
     },
 ];
 
-export const columnsOrder = [
+export const columnsOrder = (handleConfirm) => [
     {
         title: 'Email',
         dataIndex: ['user', 'email'],
@@ -161,6 +161,15 @@ export const columnsOrder = [
         render: (_, record) => (
             <>
                 <Button type="primary">Detail</Button>
+                {record.status === "PENDING" && (
+                    <Button
+                        type="default"
+                        style={{ marginLeft: 8 }}
+                        onClick={() => handleConfirm(record)}
+                    >
+                        Confirm
+                    </Button>
+                )}
             </>
         )
     },

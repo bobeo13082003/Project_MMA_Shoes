@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { allOrder } from '../../utils/api/ApiOrder';
+import { allOrder, confirmOrder } from '../../utils/api/ApiOrder';
 import { Input, Table } from 'antd';
 import { columnsOrder } from '../../utils/ColumsTable';
 import ButtonTable from '../../components/button/ButtonTable';
+import { toast } from 'react-toastify';
 
 const Order = () => {
     const [order, setOrder] = useState([]);
@@ -33,6 +34,20 @@ const Order = () => {
             phone.toLowerCase().includes(search.toLowerCase())
         );
     });
+    const handleConfirm = async (record) => {
+        try {
+            const res = await confirmOrder(record._id);
+            if (res && res.data.code === 200) {
+                toast.success("Confirm Order Successfully");
+                await getAllOrder();
+            } else {
+                toast.error("Confirm Fail")
+            }
+        } catch (error) {
+
+        }
+    };
+
     return (
         <div>
             <div>
@@ -41,7 +56,7 @@ const Order = () => {
             </div>
             <div className='mb-2'>
             </div>
-            <Table pagination={{ pageSize: 5 }} rowKey="_id" columns={columnsOrder} dataSource={filteredOrders} />
+            <Table pagination={{ pageSize: 5 }} rowKey="_id" columns={columnsOrder(handleConfirm)} dataSource={filteredOrders} />
         </div>
     );
 };
