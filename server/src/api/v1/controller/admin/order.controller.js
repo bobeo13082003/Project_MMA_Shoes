@@ -56,23 +56,17 @@ module.exports.pendingOrder = async (req, res) => {
 // api/v1/admin/order/confirm-order
 module.exports.confirmOrder = async (req, res) => {
     try {
-        const orders = await Orders.find({
-            status: "CONFIRMED"
-        }).sort({ createAt: -1 })
-        if (orders.length > 0) {
-            for (let i = 0; i < orders.length; i++) {
-                const userId = orders[i].userId;
-                const user = await Users.findOne({ token: userId }).select("email userName");
-
-                if (user) {
-                    orders[i] = { ...orders[i].toObject(), user };
-                }
-            }
+        const order = await Orders.findById(req.params.orderId);
+        if (!order) {
+            return res.json("Not Found Order");
         }
+        if (order.status === "CONFIRMED") {
+            return res.json("Order is Confirmed")
+        }
+        await Orders.findByIdAndUpdate(req.params.orderId, { status: "CONFIRMED" })
         res.json({
             code: 200,
-            data: orders,
-            message: "Get CONFIRMED Order Successfully"
+            message: "CONFIRMED Order Successfully"
         })
     } catch (error) {
         res.status(500).json(error)
