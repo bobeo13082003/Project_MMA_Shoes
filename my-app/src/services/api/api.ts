@@ -82,3 +82,4 @@ export const searchRestaurant = (search: string) => {
 export const allRestaurants = (query: string) => {
     return axios.get(`api/v1/restaurant/${query}`)
 }
+
