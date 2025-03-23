@@ -7,7 +7,13 @@ import { FlatList, Image, StyleSheet, Text, View } from "react-native"
 
 const Order = () => {
     const [orderHistory, setOrderHistory] = useState<IOrderHistoryData[]>([]);
-
+    const formatDate = (date: Date) => {
+        const newDate = new Date(date);
+        const day = String(newDate.getDate()).padStart(2, '0');
+        const month = String(newDate.getMonth() + 1).padStart(2, '0');
+        const year = newDate.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
     const getAllOrderHistory = async () => {
         try {
             const res = await getOrderHistory();
@@ -43,6 +49,7 @@ const Order = () => {
                                         <Text style={style.title}>Address: {item.address}</Text>
                                         <Text style={style.title}>Price: {order.price} VND</Text>
                                         <Text style={style.title}>Status: <Text style={item.status === "CONFIRMED" ? style.confirmedStatus : { color: "red" }}>{item.status}</Text></Text>
+                                        <Text>Buy At: {formatDate(item.createdAt)}</Text>
                                     </View>
                                 </View>
                             ))}
